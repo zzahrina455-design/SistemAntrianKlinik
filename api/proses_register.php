@@ -11,7 +11,7 @@ if (isset($_POST['register'])) {
     $password_hashed = password_hash($password_raw, PASSWORD_DEFAULT);
 
     // Query SQL untuk memasukkan data ke tabel 'users'
-    $query = "INSERT INTO user (username, email, password, role) 
+    $query = "INSERT INTO tbl_user1 (username, email, password, role) 
               VALUES ('$username', '$email', '$password_hashed', '$role')";
     
     if (mysqli_query($conn, $query)) {
