@@ -10,10 +10,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 
 if (isset($_POST['submit_antrian'])) {
     $user_id = $_SESSION['id'];
-    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $tanggal = mysqli_real_escape_string($koneksi, $_POST['tanggal']);
-    $jam = mysqli_real_escape_string($koneksi, $_POST['jam']); 
-    $poli = mysqli_real_escape_string($koneksi, $_POST['poli']);
+    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+    $tanggal = mysqli_real_escape_string($conn, $_POST['tanggal']);
+    $jam = mysqli_real_escape_string($conn, $_POST['jam']); 
+    $poli = mysqli_real_escape_string($conn, $_POST['poli']);
 
     // Generate Format Nomor Antrian Otomatis (Contoh: G-001)
     $kata_poli = explode(" ", $poli);
@@ -21,7 +21,7 @@ if (isset($_POST['submit_antrian'])) {
 
     // Hitung jumlah antrian di poli yang sama pada tanggal tersebut
     $query_count = "SELECT COUNT(*) as total FROM antrian WHERE poli='$poli' AND tanggal_kunjungan='$tanggal'";
-    $res_count = mysqli_query($koneksi, $query_count);
+    $res_count = mysqli_query($conn, $query_count);
     $row_count = mysqli_fetch_assoc($res_count);
     $urutan = $row_count['total'] + 1;
     
@@ -31,7 +31,7 @@ if (isset($_POST['submit_antrian'])) {
     $query_insert = "INSERT INTO antrian (user_id, nama_pasien, tanggal_kunjungan, jam_kunjungan, poli, nomor_antrian, status) 
                      VALUES ('$user_id', '$nama', '$tanggal', '$jam', '$poli', '$nomor_antrian', 'Menunggu')";
     
-    if(mysqli_query($koneksi, $query_insert)){
+    if(mysqli_query($conn, $query_insert)){
         // Refresh halaman setelah sukses menyimpan
         header("Location: dashboard_user.php?sukses=1");
         exit;

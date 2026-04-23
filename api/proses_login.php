@@ -4,12 +4,12 @@ include 'koneksi.php';
 
 if (isset($_POST['login'])) {
    
-    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
 
     // Cari user di database berdasarkan username
     $query = "SELECT * FROM user WHERE username = '$username'";
-    $result = mysqli_query($koneksi, $query);
+    $result = mysqli_query($conn, $query);
 
     // Cek apakah usernamenya ada
     if (mysqli_num_rows($result) === 1) {

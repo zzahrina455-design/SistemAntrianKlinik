@@ -7,14 +7,14 @@ $pass = 'ppxrISmOZg7Vac1Y';
 $db   = 'sistem_klinik';
 
 // Inisialisasi mysqli
-$koneksi = mysqli_init();
+$conn = mysqli_init();
 
 // Menambahkan pengaturan SSL (Wajib untuk TiDB Serverless)
-mysqli_ssl_set($koneksi, NULL, NULL, NULL, NULL, NULL);
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
 // Melakukan koneksi
 $real_connect = mysqli_real_connect(
-    $koneksi, 
+    $conn, 
     $host, 
     $user, 
     $pass, 

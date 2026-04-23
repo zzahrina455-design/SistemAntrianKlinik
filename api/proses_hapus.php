@@ -10,9 +10,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 // Cek apakah ada parameter hapus
 if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($koneksi, $_GET['id']);
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
     
-    mysqli_query($koneksi, "DELETE FROM antrian WHERE id='$id'");
+    mysqli_query($conn, "DELETE FROM antrian WHERE id='$id'");
 }
 
 // Kembali ke dashboard
