@@ -1,5 +1,5 @@
 <?php
-include 'api/koneksi.php';
+include 'koneksi.php';
 
 if (isset($_POST['register'])) {
     
