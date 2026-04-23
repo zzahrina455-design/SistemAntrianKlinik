@@ -4,7 +4,7 @@ include 'koneksi.php';
 
 // Proteksi admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: api/login.php");
+    header("Location: login.php");
     exit;
 }
 
@@ -16,5 +16,5 @@ if (isset($_GET['id'])) {
 }
 
 // Kembali ke dashboard
-header("Location: api/dashboard_admin.php?pesan=hapus_sukses");
+header("Location: dashboard_admin.php?pesan=hapus_sukses");
 exit;

@@ -29,7 +29,7 @@ if (isset($_POST['register'])) {
     }
 } else {
     // Jika mencoba akses file ini tanpa melalui form register
-    header("Location: api/register.php");
+    header("Location: register.php");
     exit();
 }
 ?>

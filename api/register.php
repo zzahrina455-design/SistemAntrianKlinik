@@ -44,7 +44,7 @@
                 <div class="card shadow-lg p-4">
                     <h3 class="text-center mb-4 fw-bold text-success">Buat Akun</h3>
                     
-                    <form action="api/proses_register.php" method="POST">
+                    <form action="proses_register.php" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" name="email" class="form-control" placeholder="nama@mail.com" required>

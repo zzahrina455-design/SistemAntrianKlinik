@@ -23,21 +23,21 @@ if (isset($_POST['login'])) {
 
             // REDIRECT BERDASARKAN ROLE
             if ($data['role'] == 'admin') {
-                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='api/dashboard_admin.php';</script>";
+                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='dashboard_admin.php';</script>";
             } else {
-                echo "<script>alert('Login Berhasil sebagai User!'); window.location='api/dashboard_user.php';</script>";
+                echo "<script>alert('Login Berhasil sebagai User!'); window.location='dashboard_user.php';</script>";
             }
             exit;
 
         } else {
-            echo "<script>alert('Password salah!'); window.location='api/login.php';</script>";
+            echo "<script>alert('Password salah!'); window.location='login.php';</script>";
         }
     } else {
         // Username tidak ditemukan
-        echo "<script>alert('Username tidak terdaftar!'); window.location='api/login.php';</script>";
+        echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
     }
 } else {
-    header("Location: api/login.php");
+    header("Location: login.php");
     exit;
 }
 ?>

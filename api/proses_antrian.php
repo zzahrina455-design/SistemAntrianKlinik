@@ -4,7 +4,7 @@ include 'koneksi.php';
 
 // Proteksi halaman
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
-    header("Location: api/login.php");
+    header("Location: login.php");
     exit;
 }
 
@@ -33,13 +33,13 @@ if (isset($_POST['submit_antrian'])) {
     
     if(mysqli_query($conn, $query_insert)){
         // Refresh halaman setelah sukses menyimpan
-        header("Location: api/dashboard_user.php?sukses=1");
+        header("Location: dashboard_user.php?sukses=1");
         exit;
     } else {
         echo "<script>alert('Gagal mengambil antrian!'); window.history.back();</script>";
     }
 } else {
-    header("Location: api/dashboard_user.php");
+    header("Location: dashboard_user.php");
     exit;
 }
 ?>

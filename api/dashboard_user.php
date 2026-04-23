@@ -4,7 +4,7 @@ include 'koneksi.php'; // Memanggil koneksi database
 
 // Proteksi halaman: Jika bukan user, kembalikan ke login
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
-    header("Location: api/login.php");
+    header("Location: login.php");
     exit;
 }
 

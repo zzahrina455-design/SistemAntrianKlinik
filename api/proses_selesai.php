@@ -17,6 +17,6 @@ if (isset($_GET['id'])) {
 }
 
 // Kembalikan ke halaman dashboard dengan membawa pesan sukses
-header("Location: api/dashboard_admin.php?pesan=update_sukses");
+header("Location: dashboard_admin.php?pesan=update_sukses");
 exit;
 ?>
