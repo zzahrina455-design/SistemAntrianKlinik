@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     // Cari user di database berdasarkan username
-    $query = "SELECT * FROM users WHERE username = '$username'";
+    $query = "SELECT * FROM user WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
 
     // Cek apakah usernamenya ada
@@ -23,21 +23,21 @@ if (isset($_POST['login'])) {
 
             // REDIRECT BERDASARKAN ROLE
             if ($data['role'] == 'admin') {
-                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='dashboard_admin.php';</script>";
+                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='api/dashboard_admin.php';</script>";
             } else {
-                echo "<script>alert('Login Berhasil sebagai User!'); window.location='dashboard_user.php';</script>";
+                echo "<script>alert('Login Berhasil sebagai User!'); window.location='api/dashboard_user.php';</script>";
             }
             exit;
 
         } else {
-            echo "<script>alert('Password salah!'); window.location='login.php';</script>";
+            echo "<script>alert('Password salah!'); window.location='api/login.php';</script>";
         }
     } else {
         // Username tidak ditemukan
-        echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
+        echo "<script>alert('Username tidak terdaftar!'); window.location='api/login.php';</script>";
     }
 } else {
-    header("Location: login.php");
+    header("Location: api/login.php");
     exit;
 }
 ?>

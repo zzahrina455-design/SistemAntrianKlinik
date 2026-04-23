@@ -4,7 +4,7 @@ include 'koneksi.php';
 
 // Proteksi halaman: Jika bukan admin, kembali ke login
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: api/login.php");
     exit;
 }
 
@@ -103,7 +103,6 @@ $result_data = mysqli_query($conn, $query_data);
                                             <td class="fw-bold text-dark"><?php echo htmlspecialchars($row['nama_pasien']); ?></td>
                                             <td>
                                                 <div class="fw-semibold text-dark"><?php echo htmlspecialchars($row['poli']); ?></div>
-                                                <small class="text-muted"><i class="bi bi-person-fill me-1"></i><?php echo htmlspecialchars($row['nama_dokter'] ?? '-'); ?></small>
                                             </td>
                                             <td>
                                                 <?php if($row['status'] == 'Menunggu'): ?>

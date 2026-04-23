@@ -26,7 +26,7 @@
                 <div class="card shadow-lg p-4">
                     <h3 class="text-center mb-4 fw-bold text-success">Login Klinik</h3>
                     
-                    <form action="proses_login.php" method="POST">
+                    <form action="api/proses_login.php" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
                             <div class="input-group">
@@ -50,7 +50,7 @@
                     </form>
 
                     <div class="text-center">
-                        <small>Belum punya akun? <a href="register.php" class="text-success text-decoration-none fw-bold">Daftar di sini</a></small>
+                        <small>Belum punya akun? <a href="api/register.php" class="text-success text-decoration-none fw-bold">Daftar di sini</a></small>
                     </div>
                 </div>
             </div>
