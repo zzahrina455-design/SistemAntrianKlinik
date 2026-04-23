@@ -4,17 +4,17 @@ $host = 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com';
 $port = 4000;
 $user = '42DMDXTL42WVaa2.root';
 $pass = 'ppxrISmOZg7Vac1Y';
-$db   = 'sistem-klinik';
+$db   = 'sistem_klinik';
 
 // Inisialisasi mysqli
-$koneksi = mysqli_init();
+$cont = mysqli_init();
 
 // Menambahkan pengaturan SSL (Wajib untuk TiDB Serverless)
-mysqli_ssl_set($koneksi, NULL, NULL, NULL, NULL, NULL);
+mysqli_ssl_set($cont, NULL, NULL, NULL, NULL, NULL);
 
 // Melakukan koneksi
 $real_connect = mysqli_real_connect(
-    $koneksi, 
+    $cont, 
     $host, 
     $user, 
     $pass, 
