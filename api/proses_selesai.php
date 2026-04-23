@@ -4,7 +4,7 @@ include 'koneksi.php';
 
 // Proteksi keamanan: pastikan yang akses hanya admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: api/login.php");
+    header("Location: login.php");
     exit;
 }
 

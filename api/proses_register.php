@@ -18,7 +18,7 @@ if (isset($_POST['register'])) {
         // Jika berhasil, munculkan alert dan pindah ke halaman login
         echo "<script>
                 alert('Registrasi Berhasil! Silahkan Login sebagai " . $role . ".');
-                window.location='api/login.php';
+                window.location='login.php';
               </script>";
     } else {
 

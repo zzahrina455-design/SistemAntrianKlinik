@@ -73,7 +73,7 @@
                     </form>
                     
                     <div class="text-center mt-3">
-                        <small>Sudah punya akun? <a href="api/login.php" class="text-success text-decoration-none fw-bold">Login</a></small>
+                        <small>Sudah punya akun? <a href="login.php" class="text-success text-decoration-none fw-bold">Login</a></small>
                     </div>
                 </div>
             </div>
