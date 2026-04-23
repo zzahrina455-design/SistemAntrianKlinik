@@ -10,10 +10,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 // Cek apakah ada ID yang dikirim dari tombol
 if (isset($_GET['id'])) {
-    $id_selesai = mysqli_real_escape_string($conn, $_GET['id']);
+    $id_selesai = mysqli_real_escape_string($koneksi, $_GET['id']);
     
     // Jalankan query update status menjadi 'Selesai'
-    mysqli_query($conn, "UPDATE antrian SET status='Selesai' WHERE id='$id_selesai'");
+    mysqli_query($koneksi, "UPDATE antrian SET status='Selesai' WHERE id='$id_selesai'");
 }
 
 // Kembalikan ke halaman dashboard dengan membawa pesan sukses

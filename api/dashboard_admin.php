@@ -12,18 +12,18 @@ $admin_id = $_SESSION['id'];
 
 // MENGAMBIL DATA STATISTIK HARI INI
 $hari_ini = date('Y-m-d');
-$q_total = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini'");
+$q_total = mysqli_query($koneksi, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini'");
 $tot_antrian = mysqli_fetch_assoc($q_total)['jml'];
 
-$q_tunggu = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Menunggu'");
+$q_tunggu = mysqli_query($koneksi, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Menunggu'");
 $tot_tunggu = mysqli_fetch_assoc($q_tunggu)['jml'];
 
-$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
+$q_selesai = mysqli_query($koneksi, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
 $tot_selesai = mysqli_fetch_assoc($q_selesai)['jml'];
 
 // MENGAMBIL SEMUA DATA ANTRIAN
 $query_data = "SELECT * FROM antrian ORDER BY status ASC, tanggal_kunjungan DESC, id DESC";
-$result_data = mysqli_query($conn, $query_data);
+$result_data = mysqli_query($koneksi, $query_data);
 ?>
 <!DOCTYPE html>
 <html lang="id">
