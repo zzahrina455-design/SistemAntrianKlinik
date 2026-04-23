@@ -1,5 +1,5 @@
 <?php
-include 'koneksi.php';
+include 'api/koneksi.php';
 
 if (isset($_POST['register'])) {
     
@@ -18,7 +18,7 @@ if (isset($_POST['register'])) {
         // Jika berhasil, munculkan alert dan pindah ke halaman login
         echo "<script>
                 alert('Registrasi Berhasil! Silahkan Login sebagai " . $role . ".');
-                window.location='login.php';
+                window.location='api/login.php';
               </script>";
     } else {
 
@@ -29,7 +29,7 @@ if (isset($_POST['register'])) {
     }
 } else {
     // Jika mencoba akses file ini tanpa melalui form register
-    header("Location: register.php");
+    header("Location: api/register.php");
     exit();
 }
 ?>
