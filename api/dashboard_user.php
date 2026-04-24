@@ -42,7 +42,7 @@ if (isset($_POST['submit_antrian'])) {
 }
 
 // --- LOGIKA MENGECEK TIKET AKTIF ---
-$query_cek = "SELECT * FROM antrian WHERE user_id='$user_id' AND status='Menunggu' ORDER BY id DESC LIMIT 1";
+$query_cek = "SELECT * FROM tbl_antrian WHERE user_id='$user_id' AND status='Menunggu' ORDER BY id DESC LIMIT 1";
 $res_cek = mysqli_query($conn, $query_cek);
 $tiket_aktif = mysqli_fetch_assoc($res_cek);
 ?>

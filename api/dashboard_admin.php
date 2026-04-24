@@ -22,7 +22,7 @@ $q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tang
 $tot_selesai = mysqli_fetch_assoc($q_selesai)['jml'];
 
 // MENGAMBIL SEMUA DATA ANTRIAN
-$query_data = "SELECT * FROM antrian ORDER BY status ASC, tanggal_kunjungan DESC, id DESC";
+$query_data = "SELECT * FROM tbl_antrian ORDER BY status ASC, tanggal_kunjungan DESC, id DESC";
 $result_data = mysqli_query($conn, $query_data);
 ?>
 <!DOCTYPE html>
