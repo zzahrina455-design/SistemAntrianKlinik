@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     // Cari user di database berdasarkan username
-    $query = "SELECT * FROM users WHERE username = '$username'";
+    $query = "SELECT * FROM tbl_user WHERE username='$username'";
     $result = mysqli_query($conn, $query);
 
     // Cek apakah usernamenya ada
