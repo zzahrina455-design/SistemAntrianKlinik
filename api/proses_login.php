@@ -7,9 +7,11 @@ if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
 
+    // Cari user di database berdasarkan username
     $query = "SELECT * FROM tbl_user WHERE username='$username'";
     $result = mysqli_query($conn, $query);
 
+    // Cek apakah usernamenya ada
     if (mysqli_num_rows($result) === 1) {
         $data = mysqli_fetch_assoc($result);
 
@@ -19,21 +21,20 @@ if (isset($_POST['login'])) {
             $_SESSION['username'] = $data['username'];
             $_SESSION['role'] = $data['role'];
 
-            // REDIRECT FIX
+            // REDIRECT BERDASARKAN ROLE
             if ($data['role'] == 'admin') {
-                header("Location: dashboard_admin.php");
+                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='dashboard_admin.php';</script>";
             } else {
-                header("Location: dashboard_user.php");
+                echo "<script>alert('Login Berhasil sebagai User!'); window.location='dashboard_user.php';</script>";
             }
             exit;
 
         } else {
-            header("Location: login.php?error=password");
-            exit;
+            echo "<script>alert('Password salah!'); window.location='login.php';</script>";
         }
     } else {
-        header("Location: login.php?error=username");
-        exit;
+        // Username tidak ditemukan
+        echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
     }
 } else {
     header("Location: login.php");

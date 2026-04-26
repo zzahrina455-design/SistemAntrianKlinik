@@ -25,14 +25,7 @@
             <div class="col-md-4">
                 <div class="card shadow-lg p-4">
                     <h3 class="text-center mb-4 fw-bold text-success">Login Klinik</h3>
-                    <?php if(isset($_GET['error'])): ?>
-                    <div class="alert alert-danger">
-                        <?php 
-                        if($_GET['error'] == 'password') echo "Password salah!";
-                        if($_GET['error'] == 'username') echo "Username tidak ditemukan!";
-                        ?>
-                    </div>
-                <?php endif; ?>
+                    
                     <form action="proses_login.php" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
