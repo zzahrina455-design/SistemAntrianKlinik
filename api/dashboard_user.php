@@ -1,9 +1,8 @@
 <?php
-// PENTING: Tidak boleh ada spasi atau baris kosong sebelum tag ini!
 session_start();
-include 'koneksi.php';
+include 'koneksi.php'; // Memanggil koneksi database
 
-// Proteksi halaman: Jika belum login atau bukan user, kembalikan ke login
+// Proteksi halaman: Jika bukan user, kembalikan ke login
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
     header("Location: login.php");
     exit;
@@ -11,9 +10,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 
 $user_id = $_SESSION['id'];
 
-// Cek tiket antrian aktif milik user ini
+// --- LOGIKA MENGECEK TIKET AKTIF ---
 $query_cek = "SELECT * FROM antrian WHERE user_id='$user_id' AND status='Menunggu' ORDER BY id DESC LIMIT 1";
-$res_cek   = mysqli_query($conn, $query_cek);
+$res_cek = mysqli_query($conn, $query_cek);
 $tiket_aktif = mysqli_fetch_assoc($res_cek);
 ?>
 <!DOCTYPE html>
@@ -47,7 +46,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
     </nav>
 
     <div class="container fade-up">
-
+        
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="hero-section mb-4 text-center">
@@ -58,12 +57,12 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
         </div>
 
         <div class="row justify-content-center g-4">
-
+            
             <div class="col-md-7">
                 <div class="content-card">
                     <h4 class="fw-bold text-dark mb-4"><i class="bi bi-pencil-square text-success me-2"></i>Form Pendaftaran</h4>
-
-                    <?php if ($tiket_aktif): ?>
+                    
+                    <?php if($tiket_aktif): ?>
                         <div class="alert alert-success border-0 shadow-sm rounded-4 text-center py-5">
                             <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
                             <h5 class="fw-bold mt-3">Antrian Anda Sedang Berjalan</h5>
@@ -81,7 +80,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                                     <input type="date" name="tanggal" class="form-control bg-light" required>
                                 </div>
                             </div>
-
+                            
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Pilih Jam</label>
@@ -105,20 +104,21 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                                     </select>
                                 </div>
                             </div>
-
+                            
                             <button type="submit" name="submit_antrian" class="btn btn-success btn-lg w-100 fw-bold rounded-pill shadow-sm mt-2">
                                 <i class="bi bi-ticket-detailed me-2"></i>Ambil Nomor Antrian
                             </button>
                         </form>
                     <?php endif; ?>
+
                 </div>
             </div>
 
             <div class="col-md-5">
                 <div class="content-card d-flex flex-column justify-content-center align-items-center text-center">
                     <h4 class="fw-bold text-dark mb-4 w-100 border-bottom pb-2"><i class="bi bi-display text-success me-2"></i>Status Antrian</h4>
-
-                    <?php if (!$tiket_aktif): ?>
+                    
+                    <?php if(!$tiket_aktif): ?>
                         <div id="statusKosong">
                             <i class="bi bi-inbox text-muted" style="font-size: 4rem;"></i>
                             <h5 class="text-muted mt-3">Belum ada antrian.</h5>
@@ -128,7 +128,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                         <div class="ticket-box w-100 fade-up" style="display: block;">
                             <p class="mb-0 text-white-50 fw-semibold text-uppercase">Nomor Antrian</p>
                             <div class="nomor-antrian"><?php echo $tiket_aktif['nomor_antrian']; ?></div>
-
+                            
                             <div class="bg-white text-success rounded-3 p-3 mt-3 text-start">
                                 <div class="row g-2">
                                     <div class="col-12 border-bottom pb-1 mb-1">
@@ -152,6 +152,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                             <p class="mt-3 mb-0 small opacity-75"><i class="bi bi-info-circle me-1"></i>Tunjukkan tiket ini kepada petugas.</p>
                         </div>
                     <?php endif; ?>
+
                 </div>
             </div>
         </div>
@@ -161,11 +162,16 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                 <div class="content-card">
                     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
                         <h4 class="fw-bold text-dark mb-0"><i class="bi bi-bar-chart-fill text-info me-2"></i>Statistik Kesehatan Nasional</h4>
-                        <button id="btn-refresh-bps" onclick="loadBpsData()" class="btn btn-sm btn-outline-info rounded-pill fw-bold shadow-sm">
-                            <i class="bi bi-arrow-clockwise"></i> Refresh
-                        </button>
+                        
+                        <div class="d-flex align-items-center gap-2">
+                            <button id="btn-refresh-bps" onclick="loadBpsData()" class="btn btn-sm btn-outline-info rounded-pill fw-bold shadow-sm">
+                                <i class="bi bi-arrow-clockwise"></i> Refresh
+                            </button>
+                        </div>
                     </div>
-                    <div class="text-center" id="bps-container"></div>
+                    
+                    <div class="text-center" id="bps-container">
+                        </div>
                 </div>
             </div>
         </div>
@@ -173,6 +179,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         function loadBpsData() {
             const container = document.getElementById('bps-container');
@@ -183,24 +190,31 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                 <div class="py-4">
                     <div class="spinner-border text-info" role="status"></div>
                     <p class="mt-2 text-muted fw-bold">Menarik data dari server BPS RI...</p>
-                </div>`;
+                </div>
+            `;
 
             fetch('api.php')
                 .then(response => response.json())
                 .then(data => {
-                    if (btnRefresh) btnRefresh.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Refresh';
+                    if (btnRefresh) btnRefresh.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Refresh'; 
+
+                    // MENGGUNAKAN TANDA HUBUNG (Sesuai output Postman)
                     if (data['data-availability'] === 'available') {
                         const dataPoints = data.datacontent;
+                        
+                        // Mengambil nilai pertama dari object datacontent
                         const keyTerakhir = Object.keys(dataPoints)[0];
                         const angkaHarapanHidup = dataPoints[keyTerakhir];
+
                         container.innerHTML = `
                             <div class="py-3 fade-up">
                                 <h5 class="text-muted fw-normal mb-2">Angka Harapan Hidup (AHH) Nasional</h5>
                                 <h1 class="display-3 fw-bold text-info mb-3">${angkaHarapanHidup} Tahun</h1>
                                 <p class="small text-muted w-75 mx-auto">
-                                    <i class="bi bi-info-circle me-1"></i> Berdasarkan rilis data resmi dari Badan Pusat Statistik (BPS).
+                                    <i class="bi bi-info-circle me-1"></i> Berdasarkan rilis data resmi dari Badan Pusat Statistik (BPS), indikator ini menunjukkan rata-rata perkiraan lama hidup penduduk Indonesia. Klinik kami berkomitmen untuk terus mendukung peningkatan kesehatan Anda.
                                 </p>
-                            </div>`;
+                            </div>
+                        `;
                     } else {
                         container.innerHTML = '<div class="text-muted py-4 fw-bold">Data BPS saat ini sedang tidak tersedia.</div>';
                     }
@@ -208,10 +222,11 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                 .catch(error => {
                     container.innerHTML = '<div class="text-danger py-4"><i class="bi bi-exclamation-triangle fs-3 d-block mb-2"></i> Gagal menghubungkan ke sistem BPS.</div>';
                     if (btnRefresh) btnRefresh.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Refresh';
+                    console.error("Terjadi error fetch BPS: ", error);
                 });
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             loadBpsData();
         });
     </script>
