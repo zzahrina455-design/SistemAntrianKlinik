@@ -1,43 +1,44 @@
 <?php
-session_start(); 
-include 'koneksi.php';
+include __DIR__ . '/session_handler.php'; // session_start() sudah ada di dalam sini
+
+include_once __DIR__ . '/koneksi.php';
 
 if (isset($_POST['login'])) {
-   
+
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
 
-    // Cari user di database berdasarkan username
-    $query = "SELECT * FROM tbl_user WHERE username='$username'";
+    $query  = "SELECT * FROM tbl_user WHERE username='$username'";
     $result = mysqli_query($conn, $query);
 
-    // Cek apakah usernamenya ada
     if (mysqli_num_rows($result) === 1) {
         $data = mysqli_fetch_assoc($result);
 
         if (password_verify($password, $data['password'])) {
-            
-            $_SESSION['id'] = $data['id'];
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['role'] = $data['role'];
 
-            // REDIRECT BERDASARKAN ROLE
-            if ($data['role'] == 'admin') {
-                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='dashboard_admin.php';</script>";
+            $_SESSION['id']       = $data['id'];
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['role']     = $data['role'];
+
+            if ($data['role'] === 'admin') {
+                header("Location: /api/dashboard_admin.php");
             } else {
-                echo "<script>alert('Login Berhasil sebagai User!'); window.location='dashboard_user.php';</script>";
+                header("Location: /api/dashboard_user.php");
             }
             exit;
 
         } else {
-            echo "<script>alert('Password salah!'); window.location='login.php';</script>";
+            $_SESSION['flash_error'] = 'Password yang Anda masukkan salah!';
+            header("Location: /api/login.php");
+            exit;
         }
     } else {
-        // Username tidak ditemukan
-        echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
+        $_SESSION['flash_error'] = 'Username tidak terdaftar!';
+        header("Location: /api/login.php");
+        exit;
     }
+
 } else {
-    header("Location: login.php");
+    header("Location: /api/login.php");
     exit;
 }
-?>
