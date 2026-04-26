@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
     $id_selesai = mysqli_real_escape_string($conn, $_GET['id']);
     
     // Jalankan query update status menjadi 'Selesai'
-    mysqli_query($conn, "UPDATE tbl_antrian SET status='Selesai' WHERE id='$id_selesai'");
+    mysqli_query($conn, "UPDATE antrian SET status='Selesai' WHERE id='$id_selesai'");
 }
 
 // Kembalikan ke halaman dashboard dengan membawa pesan sukses

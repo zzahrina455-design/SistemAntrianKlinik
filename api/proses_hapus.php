@@ -12,7 +12,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 if (isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     
-    mysqli_query($conn, "DELETE FROM tbl_antrian WHERE id='$id'");
+    mysqli_query($conn, "DELETE FROM antrian WHERE id='$id'");
 }
 
 // Kembali ke dashboard

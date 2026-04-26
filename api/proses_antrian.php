@@ -28,7 +28,7 @@ if (isset($_POST['submit_antrian'])) {
     // Format angka menjadi 3 digit (001, 002, dst)
     $nomor_antrian = $kode_huruf . "-" . str_pad($urutan, 3, "0", STR_PAD_LEFT);
     
-    $query_insert = "INSERT INTO tbl_antrian (user_id, nama_pasien, tanggal_kunjungan, jam_kunjungan, poli, nomor_antrian, status) 
+    $query_insert = "INSERT INTO antrian (user_id, nama_pasien, tanggal_kunjungan, jam_kunjungan, poli, nomor_antrian, status) 
                      VALUES ('$user_id', '$nama', '$tanggal', '$jam', '$poli', '$nomor_antrian', 'Menunggu')";
     
     if(mysqli_query($conn, $query_insert)){
