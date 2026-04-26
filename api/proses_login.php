@@ -1,42 +1,43 @@
 <?php
-session_start(); 
 include 'koneksi.php';
 
-if (isset($_POST['login'])) {
-   
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = $_POST['password'];
+// Ambil data dari form
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-    // Cari user di database berdasarkan username
-    $query = "SELECT * FROM tbl_user WHERE username = '$username'";
-    $result = mysqli_query($conn, $query);
+// Cek ke database
+$query = "SELECT * FROM tbl_user WHERE username='$username'";
+$result = mysqli_query($conn, $query);
 
-    // Cek apakah usernamenya ada
-    if (mysqli_num_rows($result) === 1) {
-        $data = mysqli_fetch_assoc($result);
+// Cek apakah user ada
+if (mysqli_num_rows($result) > 0) {
+    $data = mysqli_fetch_assoc($result);
 
-        if (password_verify($password, $data['password'])) {
-            
-            setcookie("user", $username, time() + 3600, "/");
-            setcookie("role", $role, time() + 3600, "/");
-            setcookie("id", $id, time() + 3600, "/");
+    // Verifikasi password
+    if (password_verify($password, $data['password'])) {
 
+        // ✅ AMBIL DATA DARI DATABASE
+        $id = $data['id'];
+        $role = $data['role'];
+        $username = $data['username'];
+
+        // ✅ SET COOKIE
+        setcookie("id", $id, time() + 3600, "/");
+        setcookie("user", $username, time() + 3600, "/");
+        setcookie("role", $role, time() + 3600, "/");
+
+        // ✅ REDIRECT SESUAI ROLE
         if ($role == 'admin') {
             header("Location: dashboard_admin.php");
-}           else {
-                header("Location: dashboard_user.php");
+        } else {
+            header("Location: dashboard_user.php");
         }
         exit();
 
-        } else {
-            echo "<script>alert('Password salah!'); window.location='login.php';</script>";
-        }
-        } else {
-        // Username tidak ditemukan
-            echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
-        }
-        } else {
-                header("Location: login.php");
-        exit;
-        }
-?>
+    } else {
+        echo "Password salah!";
+    }
+
+} else {
+    echo "Username tidak ditemukan!";
+}
