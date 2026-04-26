@@ -3,9 +3,9 @@ include 'koneksi.php';
 
 if (isset($_POST['register'])) {
     
-    $email    = mysqli_real_escape_string($koneksi, $_POST['email']);
-    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $role     = mysqli_real_escape_string($koneksi, $_POST['role']);
+    $email    = mysqli_real_escape_string($conn, $_POST['email']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $role     = mysqli_real_escape_string($conn, $_POST['role']);
     
     $password_raw = $_POST['password'];
     $password_hashed = password_hash($password_raw, PASSWORD_DEFAULT);
@@ -14,7 +14,7 @@ if (isset($_POST['register'])) {
     $query = "INSERT INTO tbl_user (username, email, password, role) 
               VALUES ('$username', '$email', '$password_hashed', '$role')";
     
-    if (mysqli_query($koneksi, $query)) {
+    if (mysqli_query($conn, $query)) {
         // Jika berhasil, munculkan alert dan pindah ke halaman login
         echo "<script>
                 alert('Registrasi Berhasil! Silahkan Login sebagai " . $role . ".');
@@ -23,7 +23,7 @@ if (isset($_POST['register'])) {
     } else {
 
         echo "<script>
-                alert('Registrasi Gagal: " . mysqli_error($koneksi) . "');
+                alert('Registrasi Gagal: " . mysqli_error($conn) . "');
                 window.history.back();
               </script>";
     }
