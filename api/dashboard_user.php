@@ -1,42 +1,14 @@
 <?php
-if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'user') {
+session_start();
+include 'koneksi.php'; // Memanggil koneksi database
+
+// Proteksi halaman: Jika bukan user, kembalikan ke login
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
     header("Location: login.php");
     exit;
 }
 
-$user_id = $_COOKIE['id'];
-$username = $_COOKIE['user'];
-
-// --- LOGIKA MENYIMPAN ANTRIAN KE DATABASE ---
-if (isset($_POST['submit_antrian'])) {
-    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
-    $tanggal = mysqli_real_escape_string($conn, $_POST['tanggal']);
-    $jam = mysqli_real_escape_string($conn, $_POST['jam']); 
-    $poli = mysqli_real_escape_string($conn, $_POST['poli']);
-
-    // Generate Format Nomor Antrian Otomatis (Contoh: G-001)
-    $kata_poli = explode(" ", $poli);
-    $kode_huruf = isset($kata_poli[1]) ? strtoupper(substr($kata_poli[1], 0, 1)) : 'U';
-
-    // Hitung jumlah antrian di poli yang sama pada tanggal tersebut
-    $query_count = "SELECT COUNT(*) as total FROM antrian WHERE poli='$poli' AND tanggal_kunjungan='$tanggal'";
-    $res_count = mysqli_query($conn, $query_count);
-    $row_count = mysqli_fetch_assoc($res_count);
-    $urutan = $row_count['total'] + 1;
-    
-    // Format angka menjadi 3 digit (001, 002, dst)
-    $nomor_antrian = $kode_huruf . "-" . str_pad($urutan, 3, "0", STR_PAD_LEFT);
-
-    // Simpan ke database 
-    $query_insert = "INSERT INTO antrian (user_id, nama_pasien, tanggal_kunjungan, jam_kunjungan, poli, nomor_antrian, status) 
-                     VALUES ('$user_id', '$nama', '$tanggal', '$jam', '$poli', '$nomor_antrian', 'Menunggu')";
-    
-    if(mysqli_query($conn, $query_insert)){
-        // Refresh halaman setelah sukses menyimpan
-        header("Location: dashboard_user.php?sukses=1");
-        exit;
-    }
-}
+$user_id = $_SESSION['id'];
 
 // --- LOGIKA MENGECEK TIKET AKTIF ---
 $query_cek = "SELECT * FROM antrian WHERE user_id='$user_id' AND status='Menunggu' ORDER BY id DESC LIMIT 1";
@@ -62,7 +34,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
             </a>
             <div class="dropdown">
                 <button class="btn btn-outline-light dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($username); ?>
+                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3 z-3">
                     <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil Saya</a></li>
@@ -97,7 +69,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
                             <p class="text-muted mb-0">Anda tidak dapat mengambil nomor baru sebelum antrian saat ini diselesaikan oleh Petugas.</p>
                         </div>
                     <?php else: ?>
-                        <form method="POST" action="">
+                        <form method="POST" action="proses_antrian.php">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Nama Pasien</label>

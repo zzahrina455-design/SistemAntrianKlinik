@@ -1,11 +1,14 @@
 <?php
-if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'admin') {
+session_start();
+include 'koneksi.php';
+
+// Proteksi halaman: Jika bukan admin, kembali ke login
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
 
-$admin_id = $_COOKIE['id'];
-$username = $_COOKIE['user'];
+$admin_id = $_SESSION['id'];
 
 // MENGAMBIL DATA STATISTIK HARI INI
 $hari_ini = date('Y-m-d');
@@ -15,7 +18,7 @@ $tot_antrian = mysqli_fetch_assoc($q_total)['jml'];
 $q_tunggu = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Menunggu'");
 $tot_tunggu = mysqli_fetch_assoc($q_tunggu)['jml'];
 
-$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM ybl_antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
+$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
 $tot_selesai = mysqli_fetch_assoc($q_selesai)['jml'];
 
 // MENGAMBIL SEMUA DATA ANTRIAN
@@ -27,7 +30,7 @@ $result_data = mysqli_query($conn, $query_data);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Dashboard Admin - Klinik</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -100,6 +103,7 @@ $result_data = mysqli_query($conn, $query_data);
                                             <td class="fw-bold text-dark"><?php echo htmlspecialchars($row['nama_pasien']); ?></td>
                                             <td>
                                                 <div class="fw-semibold text-dark"><?php echo htmlspecialchars($row['poli']); ?></div>
+                                                <small class="text-muted"><i class="bi bi-person-fill me-1"></i><?php echo htmlspecialchars($row['nama_dokter'] ?? '-'); ?></small>
                                             </td>
                                             <td>
                                                 <?php if($row['status'] == 'Menunggu'): ?>

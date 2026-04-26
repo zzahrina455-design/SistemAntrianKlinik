@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 include 'koneksi.php';
 
 if (isset($_POST['login'])) {
@@ -6,41 +7,35 @@ if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
 
-    // Cari user di database
-    $query = "SELECT * FROM tbl_user WHERE username = '$username'";
+    // Cari user di database berdasarkan username
+    $query = "SELECT * FROM users WHERE username = '$username'";
     $result = mysqli_query($conn, $query);
 
+    // Cek apakah usernamenya ada
     if (mysqli_num_rows($result) === 1) {
         $data = mysqli_fetch_assoc($result);
 
         if (password_verify($password, $data['password'])) {
+            
+            $_SESSION['id'] = $data['id'];
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['role'] = $data['role'];
 
-            // ✅ AMBIL DATA DARI DATABASE
-            $id = $data['id'];
-            $role = $data['role'];
-            $username = $data['username'];
-
-            // ✅ SET COOKIE
-            setcookie("user", $username, time() + 3600, "/");
-            setcookie("role", $role, time() + 3600, "/");
-            setcookie("id", $id, time() + 3600, "/");
-
-            // ✅ REDIRECT
-            if ($role == 'admin') {
-                header("Location: dashboard_admin.php");
+            // REDIRECT BERDASARKAN ROLE
+            if ($data['role'] == 'admin') {
+                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='dashboard_admin.php';</script>";
             } else {
-                header("Location: dashboard_user.php");
+                echo "<script>alert('Login Berhasil sebagai User!'); window.location='dashboard_user.php';</script>";
             }
-            exit();
+            exit;
 
         } else {
             echo "<script>alert('Password salah!'); window.location='login.php';</script>";
         }
-
     } else {
+        // Username tidak ditemukan
         echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
     }
-
 } else {
     header("Location: login.php");
     exit;
