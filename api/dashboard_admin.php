@@ -1,24 +1,21 @@
 <?php
-session_start();
-include 'koneksi.php';
-
-// Proteksi halaman: Jika bukan admin, kembali ke login
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
 
-$admin_id = $_SESSION['id'];
+$admin_id = $_COOKIE['id'];
+$username = $_COOKIE['user'];
 
 // MENGAMBIL DATA STATISTIK HARI INI
 $hari_ini = date('Y-m-d');
-$q_total = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini'");
+$q_total = mysqli_query($conn, "SELECT COUNT(*) as jml FROM tbl_antrian WHERE tanggal_kunjungan='$hari_ini'");
 $tot_antrian = mysqli_fetch_assoc($q_total)['jml'];
 
-$q_tunggu = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Menunggu'");
+$q_tunggu = mysqli_query($conn, "SELECT COUNT(*) as jml FROM tbl_antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Menunggu'");
 $tot_tunggu = mysqli_fetch_assoc($q_tunggu)['jml'];
 
-$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
+$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM ybl_antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
 $tot_selesai = mysqli_fetch_assoc($q_selesai)['jml'];
 
 // MENGAMBIL SEMUA DATA ANTRIAN

@@ -1,3 +1,14 @@
+<?php
+if (isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 'admin') {
+        header("Location: dashboard_admin.php");
+    } else {
+        header("Location: dashboard_user.php");
+    }
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>

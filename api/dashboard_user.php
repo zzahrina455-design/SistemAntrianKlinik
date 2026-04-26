@@ -1,14 +1,11 @@
 <?php
-session_start();
-include 'koneksi.php'; // Memanggil koneksi database
-
-// Proteksi halaman: Jika bukan user, kembalikan ke login
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'user') {
     header("Location: login.php");
     exit;
 }
 
-$user_id = $_SESSION['id'];
+$user_id = $_COOKIE['id'];
+$username = $_COOKIE['user'];
 
 // --- LOGIKA MENYIMPAN ANTRIAN KE DATABASE ---
 if (isset($_POST['submit_antrian'])) {
@@ -22,7 +19,7 @@ if (isset($_POST['submit_antrian'])) {
     $kode_huruf = isset($kata_poli[1]) ? strtoupper(substr($kata_poli[1], 0, 1)) : 'U';
 
     // Hitung jumlah antrian di poli yang sama pada tanggal tersebut
-    $query_count = "SELECT COUNT(*) as total FROM antrian WHERE poli='$poli' AND tanggal_kunjungan='$tanggal'";
+    $query_count = "SELECT COUNT(*) as total FROM tbl_antrian WHERE poli='$poli' AND tanggal_kunjungan='$tanggal'";
     $res_count = mysqli_query($conn, $query_count);
     $row_count = mysqli_fetch_assoc($res_count);
     $urutan = $row_count['total'] + 1;
@@ -31,7 +28,7 @@ if (isset($_POST['submit_antrian'])) {
     $nomor_antrian = $kode_huruf . "-" . str_pad($urutan, 3, "0", STR_PAD_LEFT);
 
     // Simpan ke database 
-    $query_insert = "INSERT INTO antrian (user_id, nama_pasien, tanggal_kunjungan, jam_kunjungan, poli, nomor_antrian, status) 
+    $query_insert = "INSERT INTO tbl_antrian (user_id, nama_pasien, tanggal_kunjungan, jam_kunjungan, poli, nomor_antrian, status) 
                      VALUES ('$user_id', '$nama', '$tanggal', '$jam', '$poli', '$nomor_antrian', 'Menunggu')";
     
     if(mysqli_query($conn, $query_insert)){
@@ -65,7 +62,7 @@ $tiket_aktif = mysqli_fetch_assoc($res_cek);
             </a>
             <div class="dropdown">
                 <button class="btn btn-outline-light dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($username); ?>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3 z-3">
                     <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil Saya</a></li>

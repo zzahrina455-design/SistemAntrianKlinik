@@ -17,27 +17,26 @@ if (isset($_POST['login'])) {
 
         if (password_verify($password, $data['password'])) {
             
-            $_SESSION['id'] = $data['id'];
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['role'] = $data['role'];
+            setcookie("user", $username, time() + 3600, "/");
+            setcookie("role", $role, time() + 3600, "/");
+            setcookie("id", $id, time() + 3600, "/");
 
-            // REDIRECT BERDASARKAN ROLE
-            if ($data['role'] == 'admin') {
-                echo "<script>alert('Login Berhasil sebagai Admin!'); window.location='dashboard_admin.php';</script>";
-            } else {
-                echo "<script>alert('Login Berhasil sebagai User!'); window.location='dashboard_user.php';</script>";
-            }
-            exit;
+        if ($role == 'admin') {
+            header("Location: dashboard_admin.php");
+}           else {
+                header("Location: dashboard_user.php");
+        }
+        exit();
 
         } else {
             echo "<script>alert('Password salah!'); window.location='login.php';</script>";
         }
-    } else {
+        } else {
         // Username tidak ditemukan
-        echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
-    }
-} else {
-    header("Location: login.php");
-    exit;
-}
+            echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
+        }
+        } else {
+                header("Location: login.php");
+        exit;
+        }
 ?>
