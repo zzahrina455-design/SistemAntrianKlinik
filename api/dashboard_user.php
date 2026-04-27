@@ -4,6 +4,18 @@ if(!isset($_COOKIE['username'])){
     header("Location: login.php");
     exit;
 }
+$tiket_aktif = null;
+
+$query = "SELECT * FROM tbl_antrian 
+          WHERE username='" . $_COOKIE['username'] . "' 
+          AND status='menunggu' 
+          LIMIT 1";
+
+$result = mysqli_query($conn, $query);
+
+if(mysqli_num_rows($result) > 0){
+    $tiket_aktif = mysqli_fetch_assoc($result);
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -24,7 +36,7 @@ if(!isset($_COOKIE['username'])){
             </a>
             <div class="dropdown">
                 <button class="btn btn-outline-light dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_COOKIE['username']); ?>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3 z-3">
                     <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil Saya</a></li>
@@ -40,7 +52,7 @@ if(!isset($_COOKIE['username'])){
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="hero-section mb-4 text-center">
-                    <h1 class="fw-bold text-success mb-2">Selamat Datang, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+                    <h1 class="fw-bold text-success mb-2">Selamat Datang, <?= htmlspecialchars($_COOKIE['username']) ?>!</h1>
                     <p class="text-muted fs-5 mb-0">Sistem Antrian Terpadu. Kesehatan Anda adalah prioritas kami.</p>
                 </div>
             </div>
@@ -63,7 +75,7 @@ if(!isset($_COOKIE['username'])){
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Nama Pasien</label>
-                                    <input type="text" name="nama" class="form-control bg-light" value="<?php echo htmlspecialchars($_SESSION['username']); ?>" required>
+                                    <input type="text" name="nama" class="form-control bg-light" value="<?php echo htmlspecialchars($_COOKIE['username']); ?>" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Tanggal Kunjungan</label>
