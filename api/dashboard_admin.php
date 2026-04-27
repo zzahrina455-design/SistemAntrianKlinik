@@ -113,17 +113,36 @@ $result_data = mysqli_query($conn, $query_data);
         .table-custom td { 
             vertical-align: middle; 
         }
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                margin-top: 70px;
+            }
+        }
 </style>
 </head>
 <body>
+    <!-- Navbar Mobile -->
+     <nav class="d-md-none navbar bg-success">
+        <div class="container-fluid">
+            <span class="navbar-brand text-white">Admin Panel</span>
+            <a href="logout.php" class="btn btn-light btn-sm">Logout</a>
+        </div>
+    </nav>
+
+<div class="container-fluid"></div>
     <div class="container-fluid">
         <div class="row">
             
-            <nav class="d-md-none navbar bg-success"> 
-                <div class="container-fluid"> 
-                    <span class="navbar-brand text-white">Admin Panel</span> 
-                    <a href="logout.php" class="btn btn-light btn-sm">Logout</a> 
-                </div> 
+            <nav class="col-md-2 d-none d-md-block sidebar shadow-sm">
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold text-success"><i class="bi bi-hospital-fill me-2"></i>Admin Panel</h4>
+                </div>
+                <div class="nav flex-column">
+                    <a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-2"></i> Dashboard Utama</a>
+                    <hr class="mx-3 my-3">
+                    <a class="nav-link text-danger fw-bold" href="logout.php"><i class="bi bi-box-arrow-left me-2"></i> Keluar</a>
+                </div>
             </nav>
 
             <main class="col-md-10 pt-4 px-4 fade-in main-content">
