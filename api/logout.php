@@ -1,6 +1,7 @@
 <?php
-session_start();
-session_destroy(); // Hapus semua data login
-header("Location: login.php"); // Balik ke halaman login
+setcookie("username", "", time() - 3600, "/");
+setcookie("role", "", time() - 3600, "/");
+
+header("Location: login.php");
 exit;
 ?>

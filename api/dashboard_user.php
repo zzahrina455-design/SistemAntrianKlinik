@@ -1,19 +1,9 @@
 <?php
-session_start();
-include 'koneksi.php'; // Memanggil koneksi database
-
-// Proteksi halaman: Jika bukan user, kembalikan ke login
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+// ✅ CEK COOKIE (BUKAN SESSION)
+if(!isset($_COOKIE['username'])){
     header("Location: login.php");
     exit;
 }
-
-$user_id = $_SESSION['id'];
-
-// --- LOGIKA MENGECEK TIKET AKTIF ---
-$query_cek = "SELECT * FROM antrian WHERE user_id='$user_id' AND status='Menunggu' ORDER BY id DESC LIMIT 1";
-$res_cek = mysqli_query($conn, $query_cek);
-$tiket_aktif = mysqli_fetch_assoc($res_cek);
 ?>
 <!DOCTYPE html>
 <html lang="id">
