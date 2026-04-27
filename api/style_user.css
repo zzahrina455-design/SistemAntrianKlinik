@@ -1,121 +1,81 @@
-/* RESET DASAR */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* BODY */
 body { 
     font-family: 'Poppins', sans-serif; 
-    background: linear-gradient(
-                rgba(240, 244, 241, 0.85), 
-                rgba(255, 255, 255, 0.95)
-               ), 
-               url("https://rsudibnusina.gresikkab.go.id/web/uploads/igdprofile/igdprofile.jpeg");
+    background: linear-gradient(rgba(240, 244, 241, 0.85), rgba(255, 255, 255, 0.95)), 
+                url("https://rsudibnusina.gresikkab.go.id/web/uploads/igdprofile/igdprofile.jpeg");
     background-size: cover; 
     background-position: center; 
-    background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh; 
     padding-bottom: 40px; 
 }
 
-/* NAVBAR */
 .navbar { 
     background: rgba(25, 135, 84, 0.95) !important; 
     backdrop-filter: blur(10px); 
-    z-index: 1000;
+    position: relative; 
+    z-index: 1050; 
 }
 
-/* HERO SECTION */
 .hero-section { 
     background: rgba(255, 255, 255, 0.95); 
     border-radius: 20px; 
     padding: 40px 30px; 
     margin-top: 40px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
     backdrop-filter: blur(10px); 
     border: 1px solid rgba(255, 255, 255, 0.5); 
+    position: relative; 
+    z-index: 1; 
 }
 
-/* CARD */
 .content-card { 
     background: rgba(255, 255, 255, 0.95); 
+    border: none; 
     border-radius: 20px; 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05); 
-    padding: 25px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    padding: 30px; 
     height: 100%; 
+    position: relative; 
+    z-index: 1; 
 }
 
-/* TIKET ANTRIAN */
 .ticket-box { 
     background: linear-gradient(135deg, #198754, #146c43); 
     border-radius: 15px; 
     color: white; 
     padding: 30px; 
     text-align: center; 
-    box-shadow: 0 10px 20px rgba(25, 135, 84, 0.3); 
+    box-shadow: 0 15px 25px rgba(25, 135, 84, 0.3); 
     position: relative; 
     overflow: hidden; 
 }
 
-/* LUBANG TIKET */
 .ticket-box::before, 
 .ticket-box::after { 
     content: ''; 
     position: absolute; 
     top: 50%; 
-    width: 25px; 
-    height: 25px; 
+    width: 30px; 
+    height: 30px; 
     background: #fff; 
     border-radius: 50%; 
     transform: translateY(-50%); 
 }
 
-.ticket-box::before { 
-    left: -12px; 
-} 
+.ticket-box::before { left: -15px; } 
+.ticket-box::after { right: -15px; }
 
-.ticket-box::after { 
-    right: -12px; 
-}
-
-/* NOMOR ANTRIAN */
 .nomor-antrian { 
-    font-size: 3.5rem; 
+    font-size: 4rem; 
     font-weight: 700; 
+    line-height: 1; 
     margin: 15px 0; 
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2); 
 }
 
-/* ANIMASI */
-.fade-up { 
-    animation: fadeUp 0.8s ease-out; 
-}
+.fade-up { animation: fadeUp 0.8s ease-out; }
 
 @keyframes fadeUp { 
-    from { 
-        opacity: 0; 
-        transform: translateY(30px); 
-    } 
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    } 
-}
-
-/* RESPONSIVE (HP) */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 25px 20px;
-    }
-
-    .content-card {
-        padding: 20px;
-    }
-
-    .nomor-antrian {
-        font-size: 2.5rem;
-    }
+    from { opacity: 0; transform: translateY(40px); } 
+    to { opacity: 1; transform: translateY(0); } 
 }
