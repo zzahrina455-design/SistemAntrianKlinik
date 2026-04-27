@@ -27,7 +27,89 @@ $tiket_aktif = mysqli_fetch_assoc($result);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="style_user.css">
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(rgba(240, 244, 241, 0.85), rgba(255, 255, 255, 0.95)), 
+                        url("https://rsudibnusina.gresikkab.go.id/web/uploads/igdprofile/igdprofile.jpeg");
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed;
+            min-height: 100vh; 
+            padding-bottom: 40px; 
+        }
+
+        .navbar { 
+            background: rgba(25, 135, 84, 0.95) !important; 
+            backdrop-filter: blur(10px); 
+            position: relative; 
+            z-index: 1050; 
+        }
+
+        .hero-section { 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 20px; 
+            padding: 40px 30px; 
+            margin-top: 40px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            position: relative; 
+            z-index: 1; 
+        }
+
+        .content-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            border: none; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            padding: 30px; 
+            height: 100%; 
+            position: relative; 
+            z-index: 1; 
+        }
+
+        .ticket-box { 
+            background: linear-gradient(135deg, #198754, #146c43); 
+            border-radius: 15px; 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+            box-shadow: 0 15px 25px rgba(25, 135, 84, 0.3); 
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        .ticket-box::before, 
+        .ticket-box::after { 
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            width: 30px; 
+            height: 30px; 
+            background: #fff; 
+            border-radius: 50%; 
+            transform: translateY(-50%); 
+        }
+
+        .ticket-box::before { left: -15px; } 
+        .ticket-box::after { right: -15px; }
+
+        .nomor-antrian { 
+            font-size: 4rem; 
+            font-weight: 700; 
+            line-height: 1; 
+            margin: 15px 0; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2); 
+        }
+
+        .fade-up { animation: fadeUp 0.8s ease-out; }
+
+        @keyframes fadeUp { 
+            from { opacity: 0; transform: translateY(40px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-dark shadow-sm py-3">
