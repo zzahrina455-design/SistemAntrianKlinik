@@ -119,7 +119,7 @@ $result_data = mysqli_query($conn, $query_data);
     <div class="container-fluid">
         <div class="row">
             
-            <nav class="col-md-2 d-none d-md-block sidebar shadow-sm">
+            <nav class="col-md-2 sidebar shadow-sm">
                 <div class="text-center mb-4">
                     <h4 class="fw-bold text-success"><i class="bi bi-hospital-fill me-2"></i>Admin Panel</h4>
                 </div>
