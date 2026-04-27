@@ -8,7 +8,6 @@ if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'admin') {
     exit;
 }
 
-$admin_id = $_COOKIE['id'];
 
 // MENGAMBIL DATA STATISTIK HARI INI
 $hari_ini = date('Y-m-d');
