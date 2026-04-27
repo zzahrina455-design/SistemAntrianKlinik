@@ -76,7 +76,7 @@ $tiket_aktif = mysqli_fetch_assoc($result);
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Nama Pasien</label>
-                                    <input type="text" name="nama" class="form-control bg-light" value="<?php echo htmlspecialchars($_SESSION['username']); ?>" required>
+                                    <input type="text" name="nama" class="form-control bg-light" value="<?php echo htmlspecialchars($_COOKIE['username']); ?>" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Tanggal Kunjungan</label>
