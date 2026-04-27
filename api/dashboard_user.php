@@ -24,7 +24,7 @@ if(!isset($_COOKIE['username'])){
             </a>
             <div class="dropdown">
                 <button class="btn btn-outline-light dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_COOKIE['username']); ?>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3 z-3">
                     <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil Saya</a></li>
@@ -40,7 +40,7 @@ if(!isset($_COOKIE['username'])){
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="hero-section mb-4 text-center">
-                    <h1 class="fw-bold text-success mb-2">Selamat Datang, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+                    <h1 class="fw-bold text-success mb-2">Selamat Datang, <?php echo htmlspecialchars($_COOKIE['username']); ?>!</h1>
                     <p class="text-muted fs-5 mb-0">Sistem Antrian Terpadu. Kesehatan Anda adalah prioritas kami.</p>
                 </div>
             </div>
