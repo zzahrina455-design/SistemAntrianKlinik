@@ -1,22 +1,21 @@
 <?php
-session_start();
 include 'koneksi.php';
 
-// Proteksi keamanan: pastikan yang akses hanya admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+// ✅ CEK ADMIN DARI COOKIE
+if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
 
-// Cek apakah ada ID yang dikirim dari tombol
+// cek id
 if (isset($_GET['id'])) {
     $id_selesai = mysqli_real_escape_string($conn, $_GET['id']);
     
-    // Jalankan query update status menjadi 'Selesai'
-    mysqli_query($conn, "UPDATE antrian SET status='Selesai' WHERE id='$id_selesai'");
+    // ✅ SAMAKAN NAMA TABEL + STATUS
+    mysqli_query($conn, "UPDATE tbl_antrian SET status='selesai' WHERE id='$id_selesai'");
 }
 
-// Kembalikan ke halaman dashboard dengan membawa pesan sukses
+// redirect kembali ke dashboard
 header("Location: dashboard_admin.php?pesan=update_sukses");
 exit;
 ?>
