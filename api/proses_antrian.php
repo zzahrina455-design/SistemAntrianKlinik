@@ -3,13 +3,13 @@ session_start();
 include 'koneksi.php';
 
 // Proteksi halaman
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'user') {
     header("Location: login.php");
     exit;
 }
 
 if (isset($_POST['submit_antrian'])) {
-    $user_id = $_SESSION['id'];
+    $user_id = $_COOKIE['id'];
     $nama = mysqli_real_escape_string($conn, $_POST['nama']);
     $tanggal = mysqli_real_escape_string($conn, $_POST['tanggal']);
     $jam = mysqli_real_escape_string($conn, $_POST['jam']); 
