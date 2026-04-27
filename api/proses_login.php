@@ -36,8 +36,5 @@ if (isset($_POST['login'])) {
         // Username tidak ditemukan
         echo "<script>alert('Username tidak terdaftar!'); window.location='login.php';</script>";
     }
-} else {
-    header("Location: login.php");
-    exit;
-}
+} 
 ?>
