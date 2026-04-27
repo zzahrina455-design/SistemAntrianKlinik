@@ -1,9 +1,22 @@
 <?php
-// ✅ CEK COOKIE (BUKAN SESSION)
+// ✅ CEK COOKIE (LOGIN)
 if(!isset($_COOKIE['username'])){
     header("Location: login.php");
     exit;
 }
+
+// ✅ KONEKSI DATABASE + AMBIL DATA ANTRIAN
+include 'koneksi.php';
+
+$username = $_COOKIE['username'];
+
+$query = "SELECT * FROM tbl_antrian 
+          WHERE nama_pasien='$username' 
+          AND status='menunggu' 
+          LIMIT 1";
+
+$result = mysqli_query($conn, $query);
+$tiket_aktif = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="id">
