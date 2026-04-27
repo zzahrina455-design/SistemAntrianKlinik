@@ -3,26 +3,26 @@ session_start();
 include 'koneksi.php';
 
 // Proteksi halaman: Jika bukan admin, kembali ke login
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_COOKIE['role']) || $_COOKIE['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }
 
-$admin_id = $_SESSION['id'];
+$admin_id = $_COOKIE['id'];
 
 // MENGAMBIL DATA STATISTIK HARI INI
 $hari_ini = date('Y-m-d');
-$q_total = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini'");
+$q_total = mysqli_query($conn, "SELECT COUNT(*) as jml FROM tbl_antrian WHERE tanggal_kunjungan='$hari_ini'");
 $tot_antrian = mysqli_fetch_assoc($q_total)['jml'];
 
-$q_tunggu = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Menunggu'");
+$q_tunggu = mysqli_query($conn, "SELECT COUNT(*) as jml FROM tbl_antrian WHERE tanggal_kunjungan='$hari_ini' AND status='menunggu'");
 $tot_tunggu = mysqli_fetch_assoc($q_tunggu)['jml'];
 
-$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM antrian WHERE tanggal_kunjungan='$hari_ini' AND status='Selesai'");
+$q_selesai = mysqli_query($conn, "SELECT COUNT(*) as jml FROM tbl_antrian WHERE tanggal_kunjungan='$hari_ini' AND status='selesai'");
 $tot_selesai = mysqli_fetch_assoc($q_selesai)['jml'];
 
 // MENGAMBIL SEMUA DATA ANTRIAN
-$query_data = "SELECT * FROM antrian ORDER BY status ASC, tanggal_kunjungan DESC, id DESC";
+$query_data = "SELECT * FROM tbl_antrian ORDER BY status ASC, tanggal_kunjungan DESC, id DESC";
 $result_data = mysqli_query($conn, $query_data);
 ?>
 <!DOCTYPE html>
@@ -61,7 +61,7 @@ $result_data = mysqli_query($conn, $query_data);
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="bg-white shadow-sm px-4 py-2 rounded-pill border">
                             <i class="bi bi-person-circle text-success me-2"></i> 
-                            <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['username']); ?></span> (Admin)
+                            <span class="fw-bold"><?php echo htmlspecialchars($_COOKIE['username']); ?></span> (Admin)
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ $result_data = mysqli_query($conn, $query_data);
                                                 <small class="text-muted"><i class="bi bi-person-fill me-1"></i><?php echo htmlspecialchars($row['nama_dokter'] ?? '-'); ?></small>
                                             </td>
                                             <td>
-                                                <?php if($row['status'] == 'Menunggu'): ?>
+                                                <?php if($row['status'] == 'menunggu'): ?>
                                                     <span class="badge bg-warning text-dark px-2 py-1"><i class="bi bi-hourglass-split me-1"></i>Menunggu</span>
                                                 <?php else: ?>
                                                     <span class="badge bg-success px-2 py-1"><i class="bi bi-check-circle me-1"></i>Selesai</span>
@@ -114,7 +114,7 @@ $result_data = mysqli_query($conn, $query_data);
                                             </td>
                                             <td class="text-center">
                                                 
-                                                <?php if($row['status'] == 'Menunggu'): ?>
+                                                <?php if($row['status'] == 'menunggu'): ?>
                                                     <a href="proses_selesai.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm mb-1" onclick="return confirm('Konfirmasi: Tandai pasien ini selesai diperiksa?');" title="Selesaikan Antrian">
                                                         <i class="bi bi-check2-all me-1"></i>Selesai
                                                     </a>
