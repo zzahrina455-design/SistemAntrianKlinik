@@ -121,9 +121,7 @@ $tiket_aktif = mysqli_fetch_assoc($result);
                 <button class="btn btn-outline-light dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
                     <i class="bi bi-person-circle me-2"></i>Halo, <?php echo htmlspecialchars($_COOKIE['username']); ?>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3 z-3">
                     <li><a class="dropdown-item text-danger fw-bold" href="logout.php"><i class="bi bi-box-arrow-right me-2"></i>Keluar</a></li>
-                </ul>
             </div>
         </div>
     </nav>
