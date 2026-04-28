@@ -66,7 +66,6 @@
                             <label class="form-label">Daftar Sebagai</label>
                             <select name="role" class="form-select">
                                 <option value="user">Pasien (User)</option>
-                                <option value="admin">Petugas (Admin)</option>
                             </select>
                         </div>
                         <button type="submit" name="register" class="btn btn-success w-100 shadow-sm">Daftar Sekarang</button>
