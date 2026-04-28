@@ -49,10 +49,12 @@
                             <label class="form-label">Email</label>
                             <input type="email" name="email" class="form-control" placeholder="nama@mail.com" required>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input type="text" name="username" class="form-control" placeholder="username" required>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Password</label>
                             <div class="input-group">
@@ -62,13 +64,13 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Daftar Sebagai</label>
-                            <select name="role" class="form-select">
-                                <option value="user">Pasien (User)</option>
-                            </select>
-                        </div>
-                        <button type="submit" name="register" class="btn btn-success w-100 shadow-sm">Daftar Sekarang</button>
+
+                        <input type="hidden" name="role" value="admin">
+
+                        <button type="submit" name="register" class="btn btn-success w-100 shadow-sm">
+                            Daftar Sekarang
+                        </button>
+
                     </form>
                     
                     <div class="text-center mt-3">
