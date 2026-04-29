@@ -16,7 +16,7 @@ if(mysqli_num_rows($result) > 0){
         setcookie("username", $data['username'], time() + 3600, "/");
         setcookie("role", $data['role'], time() + 3600, "/");
 
-        // ✅ redirect sesuai role
+        // redirect sesuai role
         if($data['role'] == 'admin'){
             header("Location: dashboard_admin.php");
         } else {
