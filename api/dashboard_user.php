@@ -1,11 +1,11 @@
 <?php
-// ✅ CEK COOKIE (LOGIN)
+// cek cookie (login)
 if(!isset($_COOKIE['username'])){
     header("Location: login.php");
     exit;
 }
 
-// ✅ KONEKSI DATABASE + AMBIL DATA ANTRIAN
+// ambil data antrian
 include 'koneksi.php';
 
 $username = $_COOKIE['username'];
